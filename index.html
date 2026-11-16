@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="theme-color" content="#0F172A" id="themeColor">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Call Double Duo AI - Arina Email Agent</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/inter@5.0.8/index.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/plus-jakarta-sans@5.0.3/index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="bg-animation">
+        <div class="orb"></div>
+        <div class="orb"></div>
+        <div class="orb"></div>
+    </div>
+
+    <!-- Mobile App Shell -->
+    <div id="app">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="header-left">
+                <button class="icon-btn menu-btn" onclick="openSideMenu()" aria-label="Buka Menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="logo-icon-small">✉️</div>
+                <div class="header-title">
+                    <h1>Arina AI</h1>
+                    <span data-i18n="tagline">Penjana E-mel Pintar</span>
+                </div>
+            </div>
+            <div class="header-actions">
+                <button class="icon-btn" onclick="openLanguageSheet()" aria-label="Tukar Bahasa">
+                    <h2><i class="fa-solid fa-language"></i></h2>
+
+                </button>
+                <button class="icon-btn" id="themeToggleBtn" onclick="toggleTheme()" aria-label="Tukar Mod Cerah/Gelap">
+                    <i class="fas fa-sun" id="themeToggleIcon"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main id="mainContent" class="main-content">
+            <!-- Home / Generator Tab -->
+            <section id="tabHome" class="tab-panel active">
+                <!-- Quick Subject Card -->
+                <div class="card input-card">
+                    <div class="form-group">
+                        <label data-i18n="labelSubject">Subjek / Tujuan</label>
+                        <div class="input-wrapper">
+                            <input type="text" id="subject" data-placeholder-i18n="placeholderSubject" placeholder="cth: Permohonan Cuti, Permintaan Mesyuarat">
+                            <button class="input-btn clear-btn" onclick="clearInput('subject')" type="button"><i class="fas fa-times"></i></button>
+                        </div>
+                    </div>
+
+                    <!-- Collapsible Form Details -->
+                    <div class="collapsible" id="detailsCollapsible">
+                        <div class="collapsible-header" onclick="toggleCollapsible('detailsCollapsible')">
+                            <span data-i18n="formTitle">Butiran E-mel</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="collapsible-body">
+                            <div class="form-group">
+                                <label data-i18n="labelRecipient">Penerima</label>
+                                <div class="input-wrapper">
+                                    <input type="text" id="recipient" data-placeholder-i18n="placeholderRecipient" placeholder="cth: Pengurus HR, Encik Ahmad">
+                                    <button class="input-btn clear-btn" onclick="clearInput('recipient')" type="button"><i class="fas fa-times"></i></button>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label data-i18n="labelTone">Nada</label>
+                                    <div class="select-wrapper">
+                                        <select id="toneSelect" onchange="selectedTone = this.value">
+                                            <option value="formal" data-i18n="toneFormal">Formal</option>
+                                            <option value="semi-formal" data-i18n="toneSemiFormal">Separa Formal</option>
+                                            <option value="friendly" data-i18n="toneFriendly">Mesra</option>
+                                            <option value="urgent" data-i18n="toneUrgent">Urgent</option>
+                                            <option value="marketing" data-i18n="toneMarketing">Pemasaran</option>
+                                            <option value="transactional" data-i18n="toneTransactional">Transaksional</option>
+                                        </select>
+                                        <i class="fas fa-chevron-down select-arrow"></i>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label data-i18n="labelLanguage">Bahasa E-mel</label>
+                                    <div class="select-wrapper">
+                                        <select id="emailLang">
+                                            <option value="malay" data-i18n-option="langMalay">Bahasa Melayu</option>
+                                            <option value="english" data-i18n-option="langEnglish">English</option>
+                                        </select>
+                                        <i class="fas fa-chevron-down select-arrow"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label data-i18n="labelSender">Nama Pengirim</label>
+                                <div class="input-wrapper">
+                                    <input type="text" id="sender" data-placeholder-i18n="placeholderSender" placeholder="cth: Ali bin Abu">
+                                    <button class="input-btn clear-btn" onclick="clearInput('sender')" type="button"><i class="fas fa-times"></i></button>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label data-i18n="labelDetails">Butiran Tambahan</label>
+                                <div class="input-wrapper">
+                                    <textarea id="details" data-placeholder-i18n="placeholderDetails" placeholder="Masukkan butiran tambahan..."></textarea>
+                                    <button class="input-btn clear-btn" onclick="clearInput('details')" type="button"><i class="fas fa-times"></i></button>
+                                </div>
+                                <div class="char-count"><span id="charCount">0</span> / 1000</div>
+                            </div>
+
+                            <div class="form-group">
+                                <label data-i18n="labelPrompt">Arahan Khas (Prompt)</label>
+                                <div class="input-wrapper">
+                                    <textarea id="customPrompt" data-placeholder-i18n="placeholderPrompt" placeholder="cth: Tulis e-mel dalam gaya santai..."></textarea>
+                                    <button class="input-btn clear-btn" onclick="clearInput('customPrompt')" type="button"><i class="fas fa-times"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="generate-btn" id="generateBtn" onclick="generateEmail()">
+                        <div class="glow-layer"></div>
+                        <span id="btnText" data-i18n="btnGenerate" class="gradient-text">✨ Jana E-mel</span>
+                    </button>
+                </div>
+
+                <!-- Quick Templates Strip -->
+                <div class="quick-templates">
+                    <div class="section-title" data-i18n="templatesTitle">Templat Pantas</div>
+                    <div class="templates-strip" id="templatesStrip">
+                        <div class="template-chip" onclick="useTemplate('leave')">🏖️ <span data-i18n="tplLeave">Cuti</span></div>
+                        <div class="template-chip" onclick="useTemplate('meeting')">📅 <span data-i18n="tplMeeting">Mesyuarat</span></div>
+                        <div class="template-chip" onclick="useTemplate('complaint')">📢 <span data-i18n="tplComplaint">Aduan</span></div>
+                        <div class="template-chip" onclick="useTemplate('thanks')">🙏 <span data-i18n="tplThanks">Terima Kasih</span></div>
+                        <div class="template-chip" onclick="useTemplate('followup')">🔄 <span data-i18n="tplFollowup">Susulan</span></div>
+                        <div class="template-chip" onclick="useTemplate('apology')">😔 <span data-i18n="tplApology">Maaf</span></div>
+                        <div class="template-chip" onclick="useTemplate('promo')">🏷️ <span data-i18n="tplPromo">Promosi</span></div>
+                        <div class="template-chip" onclick="useTemplate('invoice')">🧾 <span data-i18n="tplInvoice">Invois</span></div>
+                    </div>
+                    <div class="templates-dots" id="templatesDots"></div>
+                </div>
+
+                <!-- Output Card -->
+                <div class="card output-card">
+                    <div class="output-placeholder" id="placeholder">
+                        <div class="icon">📨</div>
+                        <p data-i18n="outputEmpty">Isi borang dan tekan "Jana E-mel"</p>
+                    </div>
+
+                    <div class="typing-indicator" id="typingIndicator">
+                        <div class="skeleton skeleton-line"></div>
+                        <div class="skeleton skeleton-line"></div>
+                        <div class="skeleton skeleton-line short"></div>
+                    </div>
+
+                    <div class="email-output" id="emailOutput">
+                        <div class="email-header">
+                            <div class="email-header-row">
+                                <span class="email-header-label" data-i18n="emailTo">Kepada:</span>
+                                <span class="email-header-value" id="outputTo"></span>
+                            </div>
+                            <div class="email-header-row">
+                                <span class="email-header-label" data-i18n="emailSubject">Subjek:</span>
+                                <span class="email-header-value" id="outputSubject"></span>
+                            </div>
+                        </div>
+                        <div class="image-upload-area" id="imageUploadArea">
+                            <label class="image-upload-btn" for="imageInput">
+                                <i class="fas fa-image"></i>
+                                <span data-i18n="btnUploadImage">Tambah Gambar</span>
+                            </label>
+                            <input type="file" id="imageInput" accept="image/*" multiple hidden>
+                            <div class="image-preview-list" id="imagePreviewList"></div>
+                        </div>
+
+                        <div class="drive-link-area" id="driveLinkArea">
+                            <label class="drive-link-label" for="driveLinkInput">
+                                <i class="fab fa-google-drive"></i>
+                                <span data-i18n="labelDriveLink">Pautan Google Drive</span>
+                            </label>
+                            <div class="drive-link-input-wrapper">
+                                <input type="url" id="driveLinkInput" data-placeholder-i18n="placeholderDriveLink" placeholder="https://drive.google.com/...">
+                                <button class="drive-link-btn icon-only" onclick="addDriveLink()" type="button" aria-label="Tambah Pautan Google Drive" title="Tambah Pautan Google Drive">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="email-body" id="outputBody" contenteditable="false"></div>
+                        <div class="action-grid">
+                            <button class="action-btn" onclick="toggleEditBody()" id="editBtn">
+                                <i class="fas fa-pen"></i>
+                                <span data-i18n="btnEdit">Edit</span>
+                            </button>
+                            <button class="action-btn" onclick="copyEmail()" id="copyBtn">
+                                <i class="fas fa-copy"></i>
+                                <span data-i18n="btnCopy">Salin</span>
+                            </button>
+                            <button class="action-btn" onclick="regenerateEmail()">
+                                <i class="fas fa-redo"></i>
+                                <span data-i18n="btnRegenerate">Jana</span>
+                            </button>
+                            <button class="action-btn" onclick="downloadEmail()">
+                                <i class="fas fa-download"></i>
+                                <span data-i18n="btnDownload">Simpan</span>
+                            </button>
+                            <button class="action-btn" onclick="openInMailto()">
+                                <i class="fas fa-envelope"></i>
+                                <span data-i18n="btnSend">Hantar</span>
+                            </button>
+                            <button class="action-btn delete-btn" onclick="clearGeneratedEmail()">
+                                <i class="fas fa-trash"></i>
+                                <span data-i18n="btnClear">Padam</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <footer>
+    <span data-i18n="footer.builtWith">Dikuasakan Oleh Gemini AI</span>
+    <p>
+        <b data-i18n="footer.developer">Pembangun: Zulkarnain, Pelajar SMK Rantau Panjang, Klang</b>
+    </p>
+    <p data-i18n="footer.product">Arina AI - Smart Email Generator™</p>
+    <p data-i18n="footer.tagline">MASTER OF MESSENGER 2026</p>
+</footer>
+            </section>
+        </main>
+
+        <!-- Bottom Navigation -->
+        <nav class="bottom-nav">
+            <button class="nav-item active" onclick="switchTab('home')">
+                <i class="fas fa-home"></i>
+                <span data-i18n="navHome">Utama</span>
+            </button>
+            <button class="nav-item" type="button" onclick="bukaInboxGmail()">
+                <i class="fab fa-google"></i>
+                <span>Gmail</span>
+            </button>
+            <button class="nav-item" onclick="openGoogleDrive()">
+                <i class="fab fa-google-drive"></i>
+                <span>Drive</span>
+            </button>
+            <button class="nav-item" onclick="openHistorySheet()">
+                <i class="fas fa-history"></i>
+                <span data-i18n="navHistory">Sejarah</span>
+            </button>
+        </nav>
+    </div>
+
+    <!-- Bottom Sheet: Templates -->
+    <div class="sheet-overlay" id="templatesSheetOverlay" onclick="closeAllSheets()"></div>
+    <div class="bottom-sheet" id="templatesSheet">
+        <div class="sheet-header">
+            <div class="sheet-handle"></div>
+            <h3 data-i18n="templatesTitle">Templat Pantas</h3>
+            <button class="sheet-close" onclick="closeAllSheets()"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="sheet-body">
+            <div class="templates-grid">
+                <div class="template-card" onclick="useTemplate('leave'); closeAllSheets();">
+                    <div class="emoji">🏖️</div>
+                    <div class="name" data-i18n="tplLeave">Mohon Cuti</div>
+                </div>
+                <div class="template-card" onclick="useTemplate('meeting'); closeAllSheets();">
+                    <div class="emoji">📅</div>
+                    <div class="name" data-i18n="tplMeeting">Permintaan Mesyuarat</div>
+                </div>
+                <div class="template-card" onclick="useTemplate('complaint'); closeAllSheets();">
+                    <div class="emoji">📢</div>
+                    <div class="name" data-i18n="tplComplaint">Aduan</div>
+                </div>
+                <div class="template-card" onclick="useTemplate('thanks'); closeAllSheets();">
+                    <div class="emoji">🙏</div>
+                    <div class="name" data-i18n="tplThanks">Ucapan Terima Kasih</div>
+                </div>
+                <div class="template-card" onclick="useTemplate('followup'); closeAllSheets();">
+                    <div class="emoji">🔄</div>
+                    <div class="name" data-i18n="tplFollowup">Susulan</div>
+                </div>
+                <div class="template-card" onclick="useTemplate('apology'); closeAllSheets();">
+                    <div class="emoji">😔</div>
+                    <div class="name" data-i18n="tplApology">Permohonan Maaf</div>
+                </div>
+                <div class="template-card" onclick="useTemplate('promo'); closeAllSheets();">
+                    <div class="emoji">🏷️</div>
+                    <div class="name" data-i18n="tplPromo">Promosi / Jualan</div>
+                </div>
+                <div class="template-card" onclick="useTemplate('invoice'); closeAllSheets();">
+                    <div class="emoji">🧾</div>
+                    <div class="name" data-i18n="tplInvoice">Invois / Resit</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom Sheet: History -->
+    <div class="sheet-overlay" id="historySheetOverlay" onclick="closeAllSheets()"></div>
+    <div class="bottom-sheet" id="historySheet">
+        <div class="sheet-header">
+            <div class="sheet-handle"></div>
+            <h3 data-i18n="historyTitle">Sejarah</h3>
+            <button class="sheet-close" onclick="closeAllSheets()"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="sheet-body">
+            <div id="historyList">
+                <div class="empty-history" data-i18n="historyEmpty">Belum ada e-mel dijana</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom Sheet: Language -->
+    <div class="sheet-overlay" id="languageSheetOverlay" onclick="closeAllSheets()"></div>
+    <div class="bottom-sheet" id="languageSheet">
+        <div class="sheet-header">
+            <div class="sheet-handle"></div>
+            <h3 data-i18n="labelLanguage">Bahasa</h3>
+            <button class="sheet-close" onclick="closeAllSheets()"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="sheet-body">
+            <div class="language-options">
+                <button class="language-option" onclick="setLang('ms'); closeAllSheets();">
+                    <span>🇲🇾</span>
+                    <span>Bahasa Melayu</span>
+                    <i class="fas fa-check" id="check-ms"></i>
+                </button>
+                <button class="language-option" onclick="setLang('en'); closeAllSheets();">
+                    <span>🇬🇧</span>
+                    <span>English</span>
+                    <i class="fas fa-check" id="check-en"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom Sheet: Images -->
+    <div class="sheet-overlay" id="imageSheetOverlay" onclick="closeAllSheets()"></div>
+    <div class="bottom-sheet" id="imageSheet">
+        <div class="sheet-header">
+            <div class="sheet-handle"></div>
+            <h3 data-i18n="btnUploadImage">Gambar</h3>
+            <button class="sheet-close" onclick="closeAllSheets()"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="sheet-body">
+            <label class="image-upload-btn large" for="imageSheetInput">
+                <i class="fas fa-cloud-upload-alt"></i>
+                <span data-i18n="btnUploadImage">Tambah Gambar</span>
+            </label>
+            <input type="file" id="imageSheetInput" accept="image/*" multiple hidden>
+            <div class="image-preview-list" id="sheetImagePreviewList"></div>
+        </div>
+    </div>
+
+    <!-- Bottom Sheet: Gmail Options -->
+    <div class="sheet-overlay" id="gmailSheetOverlay" onclick="closeAllSheets()"></div>
+    <div class="bottom-sheet" id="gmailSheet">
+        <div class="sheet-header">
+            <div class="sheet-handle"></div>
+            <h3>Buka Gmail</h3>
+            <button class="sheet-close" onclick="closeAllSheets()"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="sheet-body">
+            <div class="gmail-options">
+                <a class="gmail-option" href="googlegmail://" target="_blank" rel="noopener noreferrer" onclick="closeAllSheets()">
+                    <i class="fas fa-mobile-alt"></i>
+                    <span>Buka Gmail App (iOS/Android)</span>
+                </a>
+                <a class="gmail-option" href="https://mail.google.com/mail/mu/mp/657/#mn" target="_blank" rel="noopener noreferrer" onclick="closeAllSheets()">
+                    <i class="fas fa-globe"></i>
+                    <span>Buka Gmail Web</span>
+                </a>
+                <a class="gmail-option" href="https://apps.apple.com/my/app/gmail-email-by-google/id422689480" target="_blank" rel="noopener noreferrer" onclick="closeAllSheets()">
+                    <i class="fab fa-app-store-ios"></i>
+                    <span>Muat Turun Gmail (App Store)</span>
+                </a>
+                <a class="gmail-option" href="https://play.google.com/store/apps/details?id=com.google.android.gm" target="_blank" rel="noopener noreferrer" onclick="closeAllSheets()">
+                    <i class="fab fa-google-play"></i>
+                    <span>Muat Turun Gmail (Play Store)</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Side Menu -->
+    <div class="side-menu-overlay" id="sideMenuOverlay" onclick="closeSideMenu()"></div>
+    <aside class="side-menu" id="sideMenu" aria-label="Menu Panduan">
+        <div class="side-menu-header">
+            <div class="side-menu-brand">
+                <div class="logo-icon-small">✉️</div>
+                <div>
+                    <h2>Arina AI</h2>
+                    <span data-i18n="tagline">Penjana E-mel Pintar</span>
+                </div>
+            </div>
+            <button class="side-menu-close" onclick="closeSideMenu()" aria-label="Tutup Menu">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="side-menu-body">
+            <div class="guide-section">
+                <h3 data-i18n="guideTitle"><i class="fas fa-book-open"></i> Panduan Penggunaan</h3>
+                <ol class="guide-list">
+                    <li>
+                        <strong data-i18n="guide.step1Title">Isi Butiran</strong>
+                        <p data-i18n="guide.step1Desc">Masukkan subjek, penerima, nama pengirim, dan butiran tambahan yang diperlukan.</p>
+                    </li>
+                    <li>
+                        <strong data-i18n="guide.step2Title">Pilih Nada & Bahasa</strong>
+                        <p data-i18n="guide.step2Desc">Pilih nada e-mel (formal, mesra, urgent, dll.) dan bahasa e-mel yang diingini.</p>
+                    </li>
+                    <li>
+                        <strong data-i18n="guide.step3Title">Tambah Arahan Khas</strong>
+                        <p data-i18n="guide.step3Desc">Gunakan ruangan prompt untuk memberi arahan tambahan seperti diskaun, gaya penulisan, atau maklumat khas.</p>
+                    </li>
+                    <li>
+                        <strong data-i18n="guide.step4Title">Jana E-mel</strong>
+                        <p data-i18n="guide.step4Desc">Tekan butang "✨ Jana E-mel" dan tunggu seketika untuk melihat hasil e-mel profesional anda.</p>
+                    </li>
+                    <li>
+                        <strong data-i18n="guide.step5Title">Edit & Hantar</strong>
+                        <p data-i18n="guide.step5Desc">Sunting e-mel jika perlu, salin, muat turun, atau hantar terus melalui aplikasi e-mel.</p>
+                    </li>
+                </ol>
+            </div>
+            <div class="guide-tip">
+                <i class="fas fa-lightbulb"></i>
+                <p data-i18n="guide.tip">Tip: Gunakan templat pantas untuk menjana e-mel dengan lebih cepat!</p>
+            </div>
+        </div>
+        <div class="side-menu-footer">
+            <span data-i18n="footer.product">Arina AI - Smart Email Generator™</span>
+        </div>
+    </aside>
+
+    <!-- Scroll Arrows (di dalam app shell) -->
+    <button class="scroll-arrow scroll-arrow-up" id="scrollArrowUp" onclick="scrollMainTo('top')" aria-label="Scroll ke atas">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+    <button class="scroll-arrow scroll-arrow-down" id="scrollArrowDown" onclick="scrollMainTo('bottom')" aria-label="Scroll ke bawah">
+        <i class="fas fa-chevron-down"></i>
+    </button>
+
+    <!-- Toast -->
+    <div class="toast" id="toast">
+        <span>ℹ️</span>
+        <span id="toastMsg"></span>
+    </div>
+
+    <script src="script.js" defer></script>
+</body>
+</html>
