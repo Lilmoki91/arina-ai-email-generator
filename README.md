@@ -1,10 +1,14 @@
 # Arina AI Email Generator
 
+[![Akses aplikasi / Open the app](https://img.shields.io/badge/Akses%20Aplikasi-Arina%20AI-2563EB?style=for-the-badge)](https://lilmoki91.github.io/arina-ai-email-generator/)
+
 **Penjana e-mel pintar berasaskan AI | AI-powered smart email generator**
 
 Arina AI membantu pengguna menyediakan draf e-mel yang kemas dan profesional dengan lebih mudah. Aplikasi web ini dibina menggunakan HTML, CSS dan JavaScript, serta menyokong Bahasa Melayu dan English.
 
 Arina AI helps users create clear, professional email drafts more easily. This web application is built with HTML, CSS and JavaScript, and supports both Bahasa Melayu and English.
+
+**Akses aplikasi / Open the app:** https://lilmoki91.github.io/arina-ai-email-generator/
 
 ---
 
