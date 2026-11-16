@@ -112,9 +112,9 @@ The application sends generation requests to the worker endpoint configured in `
 
 ## Penghargaan / Credits
 
-**Pembangun sistem / System developer:** Zulkarnain — berusia 26 tahun pada tahun 2026, pelajar Sekolah Menengah Kebangsaan Rantau Panjang, Klang, Selangor, Malaysia.
+**Pembangun sistem / System developer:** Zulkarnain — berusia 16 tahun pada tahun 2026, pelajar Sekolah Menengah Kebangsaan Rantau Panjang, Klang, Selangor, Malaysia.
 
-**Zulkarnain — age 26 in 2026, student at Sekolah Menengah Kebangsaan Rantau Panjang, Klang, Selangor, Malaysia.**
+**Zulkarnain — age 16 in 2026, student at Sekolah Menengah Kebangsaan Rantau Panjang, Klang, Selangor, Malaysia.**
 
 ## Struktur projek / Project structure
 
